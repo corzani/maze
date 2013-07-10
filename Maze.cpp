@@ -36,11 +36,15 @@ const short AbstractMaze::map[] = { MOV_NO, MOV_NO, MOV_NO, MOV_NO, MOV_NO,
 AbstractMaze::AbstractMaze(const unsigned int width,
 		const unsigned int height) {
 	std::srand(time(NULL));
-	cells = new short[width * height];
 
 	this->width = width;
 	this->height = height;
-	this->size = width * height;
+
+	size = width * height;
+	cells = new short[size];
+
+	start = size;
+	exit = size;
 
 	for (unsigned int i = 1; i < width - 1; ++i) {
 		cells[i] = 0xDF;
@@ -65,6 +69,25 @@ AbstractMaze::AbstractMaze(const unsigned int width,
 	cells[lastRow] = 0x6F;
 	cells[(width * height) - 1] = 0x3F;
 
+}
+
+void AbstractMaze::setPassages(const unsigned int start,
+		const unsigned int exit) {
+
+	if (start < width) {
+		cells[start] &= 0xDF;
+	} else if (start < width + height) {
+		cells[((start - width) * width)] &= 0xEF;
+	}
+
+	if (exit < width) {
+		cells[width * (height - 1) + exit] &= 0x7F;
+	}
+
+	else if (exit < width + height) {
+		cells[(exit - width) * width + (width - 1)] &= 0xEF;
+
+	}
 }
 
 void AbstractMaze::generate(int start) {

@@ -8,7 +8,16 @@
  */
 
 #include <iostream>
+
+#define DEBUG
+
+#ifdef DEBUG
 #include "MazeDebug.h"
+#define MAZE MazeDebug
+#else
+#include "Maze.h"
+#define MAZE Maze
+#endif
 
 using namespace std;
 
@@ -23,7 +32,7 @@ int main(int argc, char *argv[]) {
 		h = 3;
 	}
 
-	MazeDebug m(w, h);
+	MAZE m(w, h);
 
 	m.generate(0);
 	cout << m.toString();

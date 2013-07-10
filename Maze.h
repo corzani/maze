@@ -32,6 +32,8 @@ public:
 protected:
 	unsigned int size;
 	unsigned int width;
+	unsigned int start;
+	unsigned int exit;
 	virtual void debugMazeStp() = 0;
 	unsigned int height;
 	short *cells;
@@ -41,6 +43,8 @@ protected:
 	AbstractMaze::directions getNext(unsigned int cellId, short *cells,
 			unsigned int *resultId);
 	const static short map[];
+	void setPassages(const unsigned int start,const unsigned int exit);
+
 };
 
 class Maze: public AbstractMaze{
