@@ -9,15 +9,7 @@
 
 #include <iostream>
 
-#define DEBUG
-
-#ifdef DEBUG
 #include "MazeDebug.h"
-#define MAZE MazeDebug
-#else
-#include "Maze.h"
-#define MAZE Maze
-#endif
 
 using namespace std;
 
@@ -32,10 +24,19 @@ int main(int argc, char *argv[]) {
 		h = 3;
 	}
 
-	MAZE m(w, h);
+	std::cout << "MaZe " << w << "x" << h << std::endl;
+	MazeDebug m(w, h);
 
 	m.generate(0);
-	cout << m.toString();
+	m.printBinary();
+	m.show();
+	m.setPassages(0,0);
+	m.printBinary();
+	m.show();
+	m.setPassages(1,1);
+	m.printBinary();
+	m.show();
+
 
 	return 0;
 }

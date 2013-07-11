@@ -6,6 +6,8 @@
  * Created on June 28, 2013, 2:31 AM
  *
  */
+
+
 #ifndef MAZE_H_
 #define MAZE_H_
 
@@ -29,6 +31,8 @@ public:
 	enum directions {
 		MOV_NO, MOV_LEFT, MOV_UP, MOV_RIGHT, MOV_DOWN
 	};
+	void setPassages(const unsigned int start,const unsigned int exit);
+
 protected:
 	unsigned int size;
 	unsigned int width;
@@ -43,8 +47,6 @@ protected:
 	AbstractMaze::directions getNext(unsigned int cellId, short *cells,
 			unsigned int *resultId);
 	const static short map[];
-	void setPassages(const unsigned int start,const unsigned int exit);
-
 };
 
 class Maze: public AbstractMaze{

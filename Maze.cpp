@@ -74,20 +74,34 @@ AbstractMaze::AbstractMaze(const unsigned int width,
 void AbstractMaze::setPassages(const unsigned int start,
 		const unsigned int exit) {
 
+	if (this->start < width) {
+		cells[this->start] |= 0x02;
+	} else if (this->start < width + height) {
+		cells[((this->start - width) * width)] |= 0x01;
+	}
+
+	if (this->exit < width) {
+		std::cout << "UFFA :(" << width * (height - 1) + exit << std::endl;
+		cells[width * (height - 1) + this->exit] |= 0x08;
+	} else if (this->exit < width + height) {
+		cells[(this->exit - width) * width + (width - 1)] |= 0x04;
+	}
+
+	this->start = start;
+	this->exit = exit;
+
 	if (start < width) {
-		cells[start] &= 0xDF;
+		cells[start] &= 0xFD;
 	} else if (start < width + height) {
-		cells[((start - width) * width)] &= 0xEF;
+		cells[((start - width) * width)] &= 0xFE;
 	}
 
 	if (exit < width) {
-		cells[width * (height - 1) + exit] &= 0x7F;
+		cells[width * (height - 1) + exit] &= 0xF7;
+	} else if (exit < width + height) {
+		cells[(exit - width) * width + (width - 1)] &= 0xFB;
 	}
 
-	else if (exit < width + height) {
-		cells[(exit - width) * width + (width - 1)] &= 0xEF;
-
-	}
 }
 
 void AbstractMaze::generate(int start) {

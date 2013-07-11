@@ -18,50 +18,18 @@ MazeDebug::~MazeDebug() {
 }
 
 void MazeDebug::debugMazeStp() {
-printBinary();
+	printBinary();
 }
 
-
 std::string MazeDebug::toString() {
-	std::string out("+");
-	std::string temp;
+	return "";
+}
 
-	for (unsigned int i = 0; i < width; ++i) {
-		out += "-+";
-	}
-	out += "\n";
+void MazeDebug::show() {
 
-	for (unsigned int i = 0; i < height; ++i) {
-		out += "|";
-		temp = "+";
+	printTopBorder();
+	printBody();
 
-		for (unsigned int j = 0; j < width; ++j) {
-			switch ((cells[(i * width) + j] & 0x0C) >> 2) {
-
-			case 3:
-				out += " |";
-				temp += "-+";
-				break;
-			case 2:
-				out += "  ";
-				temp += "-+";
-				break;
-			case 1:
-				out += " |";
-				temp += " +";
-				break;
-			case 0:
-				out += "  ";
-				temp += " +";
-				break;
-
-			}
-		}
-		out += "\n" + temp + "\n";
-
-	}
-
-	return out;
 }
 
 std::string MazeDebug::printBinary() {
@@ -86,6 +54,96 @@ std::string MazeDebug::printBinary() {
 	return out;
 }
 
+void MazeDebug::printTopBorder() {
+
+	std::string out = "+";
+	if (start < width) {
+		unsigned int i = 0;
+		for (; i < start; ++i) {
+			out += "-+";
+		}
+		out += " +";
+		++i;
+		for (; i < width; ++i) {
+			out += "-+";
+		}
+	} else {
+
+		for (unsigned int i = 0; i < width; ++i) {
+			out += "-+";
+		}
+
+	}
+	out += "\n";
+
+	std::cout << out;
+
+}
+
+void MazeDebug::printBody() {
+
+	std::string out="", temp="";
+	unsigned int newStart = 0;
+	unsigned int i = 0;
+	if (start < width + height && start >= width) {
+
+		newStart = start - width;
+
+		for (; i < newStart; ++i) {
+			std::cout << "|";
+			printRow(i);
+		}
+
+		printRow(i++);
+
+		for (; i < height; ++i) {
+			std::cout << "|";
+			printRow(i);
+		}
+
+	} else {
+
+		for (; i < height; ++i) {
+			std::cout << "|";
+			printRow(i);
+		}
+	}
+
+}
+
+inline void MazeDebug::printRow(const unsigned int index) {
+
+	std::string out, temp="+";
+
+	for (unsigned int j = 0; j < width; ++j) {
+
+		switch ((cells[(index * width) + j] & 0x0C) >> 2) {
+
+		case 3:
+			out += " |";
+			temp += "-+";
+			break;
+		case 2:
+			out += "  ";
+			temp += "-+";
+			break;
+		case 1:
+			out += " |";
+			temp += " +";
+			break;
+		case 0:
+			out += "  ";
+			temp += " +";
+			break;
+
+		}
+
+	}
+	out += "\n" + temp + "\n";
+
+	std::cout << out;
+
+}
 
 void MazeDebug::cellStatus(unsigned int cellId) {
 

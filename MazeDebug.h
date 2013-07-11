@@ -18,10 +18,14 @@ public:
 	std::string toString();
 	std::string printBinary();
 	void cellStatus(unsigned int cellId);
+	void show();
 
 
 private:
 	void debugMazeStp();
+	void printTopBorder();
+	inline void printRow(unsigned int index);
+	void printBody();
 
 };
 
