@@ -18,7 +18,6 @@ int main(int argc, char *argv[]) {
 	if (argc == 3) {
 		w = atoi(argv[1]);
 		h = atoi(argv[2]);
-
 	} else {
 		w = 3;
 		h = 3;
@@ -28,15 +27,9 @@ int main(int argc, char *argv[]) {
 	MazeDebug m(w, h);
 
 	m.generate(0);
-	m.printBinary();
-	m.show();
 	m.setPassages(0,0);
 	m.printBinary();
 	m.show();
-	m.setPassages(1,1);
-	m.printBinary();
-	m.show();
-
 
 	return 0;
 }

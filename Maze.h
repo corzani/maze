@@ -47,6 +47,8 @@ protected:
 	AbstractMaze::directions getNext(unsigned int cellId, short *cells,
 			unsigned int *resultId);
 	const static short map[];
+	void compactMemory();
+
 };
 
 class Maze: public AbstractMaze{

@@ -117,7 +117,7 @@ inline void MazeDebug::printRow(const unsigned int index) {
 
 	for (unsigned int j = 0; j < width; ++j) {
 
-		switch ((cells[(index * width) + j] & 0x0C) >> 2) {
+		switch ((cells[(index * width) + j] & 0xC0) >> 6) {
 
 		case 3:
 			out += " |";
@@ -153,37 +153,37 @@ void MazeDebug::cellStatus(unsigned int cellId) {
 
 	cout << "Analysis " << cellId << endl << "\t";
 
-	if ((cell & 0x80) >> 7) {
+	if ((cell & 0x08) >> 7) {
 		cout << "Down ";
 	}
-	if ((cell & 0x40) >> 6) {
+	if ((cell & 0x04) >> 6) {
 		cout << "DX ";
 	}
-	if ((cell & 0x20) >> 5) {
+	if ((cell & 0x02) >> 5) {
 		cout << "Up ";
 	}
-	if ((cell & 0x10) >> 4) {
+	if ((cell & 0x01) >> 4) {
 		cout << "Sx ";
 	}
-	if ((cell & 0xF0) == 0) {
+	if ((cell & 0x0F) == 0) {
 		cout << "No cells available" << endl;
 	} else {
 		cout << "cell(s) available" << endl;
 	}
 	cout << "\t";
-	if ((cell & 0x08) >> 3) {
+	if ((cell & 0x80) >> 3) {
 		cout << "Down ";
 	}
-	if ((cell & 0x04) >> 2) {
+	if ((cell & 0x40) >> 2) {
 		cout << "Dx ";
 	}
-	if ((cell & 0x02) >> 1) {
+	if ((cell & 0x20) >> 1) {
 		cout << "Up ";
 	}
-	if (cell & 0x01) {
+	if (cell & 0x10) {
 		cout << "Sx ";
 	}
-	if ((cell & 0x0F) == 0) {
+	if ((cell & 0xF0) == 0) {
 		cout << "No walls ?!?!?" << endl;
 	} else {
 		cout << "wall(s) available" << endl;
