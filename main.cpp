@@ -9,7 +9,7 @@
 
 #include <iostream>
 
-#include "MazeDebug.h"
+#include "MazePng.h"
 
 using namespace std;
 
@@ -24,12 +24,10 @@ int main(int argc, char *argv[]) {
 	}
 
 	std::cout << "MaZe " << w << "x" << h << std::endl;
-	MazeDebug m(w, h);
+	MazePng m(w, h);
 
 	m.generate(0);
 	m.setPassages(0,0);
-	m.printBinary();
-	m.show();
-
+	m.toPng(10);
 	return 0;
 }

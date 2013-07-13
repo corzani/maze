@@ -24,10 +24,8 @@ public:
 	AbstractMaze(const unsigned int width, const unsigned int height);
 	//  Maze(const Maze& orig);
 	virtual ~AbstractMaze();
-	virtual std::string toString()=0;
 	//void generate();
 	void generate(int start);
-	virtual std::string printBinary()=0;
 	enum directions {
 		MOV_NO, MOV_LEFT, MOV_UP, MOV_RIGHT, MOV_DOWN
 	};
@@ -38,7 +36,6 @@ protected:
 	unsigned int width;
 	unsigned int start;
 	unsigned int exit;
-	virtual void debugMazeStp() = 0;
 	unsigned int height;
 	short *cells;
 	inline void setVisited(unsigned int cellId);

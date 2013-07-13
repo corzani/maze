@@ -245,13 +245,3 @@ Maze::Maze(const unsigned int width, const unsigned int height) :
 		AbstractMaze(width, height) {
 }
 
-void Maze::debugMazeStp() {
-}
-
-std::string Maze::toString() {
-	return "";
-}
-
-std::string Maze::printBinary() {
-	return "";
-}
