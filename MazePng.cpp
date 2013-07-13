@@ -23,8 +23,6 @@ MazePng::~MazePng() {
 }
 
 void MazePng::toPng(unsigned int scale) {
-
-	/* PNG structs and types */
 	png_byte color_type;
 	png_byte bit_depth;
 	png_structp png_ptr;
@@ -38,10 +36,7 @@ void MazePng::toPng(unsigned int scale) {
 	height = (this->height * 2) + 1;
 
 	color_type = PNG_COLOR_TYPE_RGB;
-	bit_depth = 8; /* Number of bits per color, not per pixel */
-
-	/* Dynamic 2D array in C */
-//   row_pointers = (png_bytep *)malloc( sizeof(png_bytep) * height);
+	bit_depth = 8;
 	row_pointers = new png_bytep[height];
 
 	for (int i = 0; i < height; ++i) {
@@ -55,7 +50,6 @@ void MazePng::toPng(unsigned int scale) {
 
 	createImage(row_pointers, 0);
 
-	/* Write the data out to the PNG file */
 	fp = fopen("out.png", "wb");
 	png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
 	info_ptr = png_create_info_struct(png_ptr);
@@ -66,12 +60,13 @@ void MazePng::toPng(unsigned int scale) {
 	png_write_info(png_ptr, info_ptr);
 	png_write_image(png_ptr, row_pointers);
 	png_write_end(png_ptr, NULL);
-
+	png_destroy_write_struct(&png_ptr, &info_ptr);
 	for (int i = 0; i < height; ++i) {
-		delete row_pointers[i];
+		delete[] row_pointers[i];
 	}
 
 	delete[] row_pointers;
+	fclose(fp);
 
 }
 
@@ -103,12 +98,7 @@ void MazePng::createImage(png_bytep *row_pointers, unsigned int scale) {
 		for (unsigned int x = 0; x < width; ++x) {
 
 			switch ((cells[(y * width) + x] & 0xC0) >> 6) {
-			/*
-			 case 3:
-			 temp[0] = WALL;
-			 temp[1] = WALL;
-			 break;
-			 */
+
 			case 2:
 				temp[0] = PATH;
 				setPixel(row_pointers, 2 + (x * 2), (y * 2) + 1, temp[0]);
@@ -121,7 +111,6 @@ void MazePng::createImage(png_bytep *row_pointers, unsigned int scale) {
 				setPixel(row_pointers, 2 + (x * 2), (y * 2) + 1, temp[0]);
 				setPixel(row_pointers, 1 + (x * 2), (y * 2) + 2, temp[1]);
 				break;
-
 			}
 			setPixel(row_pointers, 1 + (x * 2), (y * 2) + 1, PATH);
 		}
