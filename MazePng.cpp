@@ -70,7 +70,7 @@ void MazePng::toPng(unsigned int scale) {
 
 }
 
-void inline setPixel(png_bytep *row_pointers, unsigned int x, unsigned int y,
+void inline MazePng::setPixel(png_bytep *row_pointers, unsigned int x, unsigned int y,
 		png_byte type) {
 	row_pointers[y][0 + 3 * x] = type;
 	row_pointers[y][1 + 3 * x] = type;

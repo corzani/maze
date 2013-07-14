@@ -1,4 +1,4 @@
-CXXFLAGS = -O3	-g -Wall -fmessage-length=0
+CXXFLAGS = -O3	-Wall -fmessage-length=0
 
 OBJS =		Maze.o MazeDebug.o MazePng.o main.o
 

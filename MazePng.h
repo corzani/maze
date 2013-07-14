@@ -17,6 +17,8 @@ public:
 	void toPng(unsigned int scale);
 private:
 	void createImage(png_bytep *row_pointers, unsigned int scale);
+	void inline setPixel(png_bytep *row_pointers, unsigned int x,
+			unsigned int y, png_byte type);
 
 };
 
